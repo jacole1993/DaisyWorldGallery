@@ -1,0 +1,39 @@
+{
+  "applications": ["DaisyWorld"],
+  "changelogDate": "20220704151838",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "album",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Album",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "photo",
+      "otherEntityRelationshipName": "album",
+      "ownerSide": false,
+      "relationshipName": "photo",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "video",
+      "otherEntityRelationshipName": "album",
+      "ownerSide": false,
+      "relationshipName": "video",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

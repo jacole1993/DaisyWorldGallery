@@ -1,0 +1,11 @@
+id;image_name;image;image_content_type;date_taken;is_mom_in_picture;is_dad_in_picture;is_family_in_picture
+1;ADP (Bouvetoya) Specialist;../fake-data/blob/hipster.png;image/png;2022-07-04;false;true;true
+2;Chief Frozen Ergonomic;../fake-data/blob/hipster.png;image/png;2022-07-04;false;false;true
+3;Sleek Cambridgeshire;../fake-data/blob/hipster.png;image/png;2022-07-04;false;true;false
+4;1080p Toys bypassing;../fake-data/blob/hipster.png;image/png;2022-07-04;true;true;true
+5;maroon parsing;../fake-data/blob/hipster.png;image/png;2022-07-03;false;false;false
+6;Brand Credit;../fake-data/blob/hipster.png;image/png;2022-07-03;true;false;false
+7;digital challenge;../fake-data/blob/hipster.png;image/png;2022-07-04;false;false;true
+8;algorithm;../fake-data/blob/hipster.png;image/png;2022-07-04;true;true;false
+9;foreground Plastic;../fake-data/blob/hipster.png;image/png;2022-07-04;false;true;true
+10;Metrics middleware;../fake-data/blob/hipster.png;image/png;2022-07-03;false;true;true

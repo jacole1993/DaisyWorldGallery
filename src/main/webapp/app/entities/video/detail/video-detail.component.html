@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="video">
+      <h2 data-cy="videoDetailsHeading"><span jhiTranslate="daisyWorldApp.video.detail.title">Video</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ video.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.videoName">Video Name</span></dt>
+        <dd>
+          <span>{{ video.videoName }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.video">Video</span></dt>
+        <dd>
+          <div *ngIf="video.video">
+            <a (click)="openFile(video.video, video.videoContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ video.videoContentType }}, {{ byteSize(video.video) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.dateTaken">Date Taken</span></dt>
+        <dd>
+          <span>{{ video.dateTaken | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.isMomInPicture">Is Mom In Picture</span></dt>
+        <dd>
+          <span>{{ video.isMomInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.isDadInPicture">Is Dad In Picture</span></dt>
+        <dd>
+          <span>{{ video.isDadInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.isFamilyInPicture">Is Family In Picture</span></dt>
+        <dd>
+          <span>{{ video.isFamilyInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.video.album">Album</span></dt>
+        <dd>
+          <span *ngFor="let album of video.albums; let last = last">
+            <a [routerLink]="['/album', album?.id, 'view']">{{ album.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/video', video.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

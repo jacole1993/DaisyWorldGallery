@@ -1,0 +1,56 @@
+
+application {
+  config {
+    baseName DaisyWorld,
+    applicationType monolith,
+    packageName com.daisyworld,
+    authenticationType jwt,
+    prodDatabaseType postgresql,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Photo {
+	imageName String required,
+    image ImageBlob required,
+    dateTaken LocalDate
+    isMomInPicture Boolean,
+    isDadInPicture Boolean,
+    isFamilyInPicture Boolean
+    
+}
+
+entity Video {
+	videoName String required,
+    video AnyBlob required,
+    dateTaken LocalDate,
+    isMomInPicture Boolean,
+    isDadInPicture Boolean,
+    isFamilyInPicture Boolean
+    
+}
+
+entity Album {
+	name String,
+    description String
+
+}
+
+relationship ManyToMany {
+  Photo to Album
+}
+
+relationship ManyToMany {
+  Video to Album
+}
+
+
+
+
+
+
+
+
+
+    

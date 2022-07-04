@@ -1,0 +1,158 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-photo-heading" data-cy="PhotoCreateUpdateHeading" jhiTranslate="daisyWorldApp.photo.home.createOrEditLabel">
+        Create or edit a Photo
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.imageName" for="field_imageName">Image Name</label>
+          <input type="text" class="form-control" name="imageName" id="field_imageName" data-cy="imageName" formControlName="imageName" />
+          <div *ngIf="editForm.get('imageName')!.invalid && (editForm.get('imageName')!.dirty || editForm.get('imageName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('imageName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.image" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="photo image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+          <div *ngIf="editForm.get('image')!.invalid && (editForm.get('image')!.dirty || editForm.get('image')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('image')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.dateTaken" for="field_dateTaken">Date Taken</label>
+          <div class="input-group">
+            <input
+              id="field_dateTaken"
+              data-cy="dateTaken"
+              type="text"
+              class="form-control"
+              name="dateTaken"
+              ngbDatepicker
+              #dateTakenDp="ngbDatepicker"
+              formControlName="dateTaken"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateTakenDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.isMomInPicture" for="field_isMomInPicture">Is Mom In Picture</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isMomInPicture"
+            id="field_isMomInPicture"
+            data-cy="isMomInPicture"
+            formControlName="isMomInPicture"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.isDadInPicture" for="field_isDadInPicture">Is Dad In Picture</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isDadInPicture"
+            id="field_isDadInPicture"
+            data-cy="isDadInPicture"
+            formControlName="isDadInPicture"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="daisyWorldApp.photo.isFamilyInPicture" for="field_isFamilyInPicture"
+            >Is Family In Picture</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isFamilyInPicture"
+            id="field_isFamilyInPicture"
+            data-cy="isFamilyInPicture"
+            formControlName="isFamilyInPicture"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="daisyWorldApp.photo.album" for="field_albums">Album</label>
+          <select class="form-control" id="field_albums" data-cy="album" multiple name="albums" formControlName="albums">
+            <option
+              [ngValue]="getSelectedAlbum(albumOption, editForm.get('albums')!.value)"
+              *ngFor="let albumOption of albumsSharedCollection; trackBy: trackAlbumById"
+            >
+              {{ albumOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

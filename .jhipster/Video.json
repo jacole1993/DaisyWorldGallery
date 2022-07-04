@@ -1,0 +1,51 @@
+{
+  "applications": ["DaisyWorld"],
+  "changelogDate": "20220704151738",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "video",
+  "fields": [
+    {
+      "fieldName": "videoName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "video",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateTaken",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isMomInPicture",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isDadInPicture",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isFamilyInPicture",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Video",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "album",
+      "otherEntityRelationshipName": "video",
+      "ownerSide": true,
+      "relationshipName": "album",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

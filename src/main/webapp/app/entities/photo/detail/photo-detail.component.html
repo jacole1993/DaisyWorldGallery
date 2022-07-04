@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="photo">
+      <h2 data-cy="photoDetailsHeading"><span jhiTranslate="daisyWorldApp.photo.detail.title">Photo</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ photo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.imageName">Image Name</span></dt>
+        <dd>
+          <span>{{ photo.imageName }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.image">Image</span></dt>
+        <dd>
+          <div *ngIf="photo.image">
+            <a (click)="openFile(photo.image, photo.imageContentType)">
+              <img [src]="'data:' + photo.imageContentType + ';base64,' + photo.image" style="max-width: 100%" alt="photo image" />
+            </a>
+            {{ photo.imageContentType }}, {{ byteSize(photo.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.dateTaken">Date Taken</span></dt>
+        <dd>
+          <span>{{ photo.dateTaken | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.isMomInPicture">Is Mom In Picture</span></dt>
+        <dd>
+          <span>{{ photo.isMomInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.isDadInPicture">Is Dad In Picture</span></dt>
+        <dd>
+          <span>{{ photo.isDadInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.isFamilyInPicture">Is Family In Picture</span></dt>
+        <dd>
+          <span>{{ photo.isFamilyInPicture }}</span>
+        </dd>
+        <dt><span jhiTranslate="daisyWorldApp.photo.album">Album</span></dt>
+        <dd>
+          <span *ngFor="let album of photo.albums; let last = last">
+            <a [routerLink]="['/album', album?.id, 'view']">{{ album.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/photo', photo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
